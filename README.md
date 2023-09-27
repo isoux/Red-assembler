@@ -16,3 +16,31 @@ Try it:
 
         $ redc test.reds
         $ ./test
+To check if the instructions are correct:
+
+       $ red-tc dis_asm.reds
+       $ objdump -D -z -M intel dis_asm  > dis_asm.dmp
+       or
+       $ llvm-objdump -D -z --x86-asm-syntax=intel dis_asm  > dis_asm.dmp
+In the file dis_asm.dmp at the section .text: somewhere in the middle you should find similar content:
+
+       8048426:	90                   	nop
+       8048427:	8a c3                	mov    al,bl
+       8048429:	8a d8                	mov    bl,al
+       804842b:	8a c1                	mov    al,cl
+       804842d:	8a c8                	mov    cl,al
+       804842f:	8a c2                	mov    al,dl
+       8048431:	8a d0                	mov    dl,al
+       8048433:	8a d9                	mov    bl,cl
+       8048435:	8a cb                	mov    cl,bl
+       8048437:	8a da                	mov    bl,dl
+       8048439:	8a d3                	mov    dl,bl
+       804843b:	8a ca                	mov    cl,dl
+       804843d:	8a d1                	mov    dl,cl
+       804843f:	90                   	nop
+       8048440:	8a c4                	mov    al,ah
+       8048442:	8a e0                	mov    ah,al
+       8048444:	8a e1                	mov    ah,cl
+       8048446:	8a cc                	mov    cl,ah
+       8048448:	8a f7                	mov    dh,bh
+       804844a:	90                   	nop
