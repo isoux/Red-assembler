@@ -1,13 +1,13 @@
 Red/System[
-	Title:	"Instruction processing test"
-	Author: "Isoux"
-	File: 	%test.reds
-	Tabs: 	4
-	Rights: "Copyright (C) 2023 Isoux isa@isoux.org. All rights reserved."
-	License: {
-		Distributed under the Boost Software License, Version 1.0.
+    Title:  "Instruction processing test"
+    Author: "Isoux"
+    File:   %test.reds
+    Tabs:   4
+    Rights: "Copyright (C) 2023 Isoux isa@isoux.org. All rights reserved."
+    License: {
+        Distributed under the Boost Software License, Version 1.0.
         See https://github.com/isoux/Red-assembler/blob/main/LICENSE
-	}
+    }
     Note: {
         The processing result is printed on the command line in the 
         form #inline #{xxxx...}
