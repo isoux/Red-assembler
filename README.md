@@ -18,7 +18,7 @@ Try it:
         $ ./test
 To check if the instructions are correct:
 
-       $ red-tc dis_asm.reds
+       $ redc dis_asm.reds
        $ objdump -D -z -M intel dis_asm  > dis_asm.dmp
        or
        $ llvm-objdump -D -z --x86-asm-syntax=intel dis_asm  > dis_asm.dmp
