@@ -10,7 +10,7 @@ That's why this simple test program as a result prints this desired form on the 
 The project is at the very beginning and is waiting for "positive" reactions and support and justification as to whether this is necessary at all. But Red/System as a low-level language should surely have some form of its assembler?
 It will definitely benefit me...
 
-Unfortunately, since I'm at the very beginning, so far only one MOV instruction has been processed and that's only for eight-bit registers...
+Unfortunately, since I'm at the very beginning, so far only one MOV instruction has been processed and that's only for eight and 16 bit general registers...
 
 Try it:
 
@@ -27,20 +27,24 @@ In the file dis_asm.dmp at the section .text: somewhere in the middle you should
        8048426:	90                   	nop
        8048427:	8a c3                	mov    al,bl
        8048429:	8a d8                	mov    bl,al
-       804842b:	8a c1                	mov    al,cl
-       804842d:	8a c8                	mov    cl,al
-       804842f:	8a c2                	mov    al,dl
-       8048431:	8a d0                	mov    dl,al
-       8048433:	8a d9                	mov    bl,cl
-       8048435:	8a cb                	mov    cl,bl
-       8048437:	8a da                	mov    bl,dl
-       8048439:	8a d3                	mov    dl,bl
-       804843b:	8a ca                	mov    cl,dl
-       804843d:	8a d1                	mov    dl,cl
-       804843f:	90                   	nop
-       8048440:	8a c4                	mov    al,ah
-       8048442:	8a e0                	mov    ah,al
-       8048444:	8a e1                	mov    ah,cl
-       8048446:	8a cc                	mov    cl,ah
-       8048448:	8a f7                	mov    dh,bh
-       804844a:	90                   	nop
+       804842b:	8a d9                	mov    bl,cl
+       804842d:	8a cb                	mov    cl,bl
+       804842f:	8a da                	mov    bl,dl
+       8048431:	8a d3                	mov    dl,bl
+       8048433:	8a c4                	mov    al,ah
+       8048435:	8a e0                	mov    ah,al
+       8048437:	8a e1                	mov    ah,cl
+       8048439:	8a cc                	mov    cl,ah
+       804843b:	66 8b c3             	mov    ax,bx
+       804843e:	66 8b d8             	mov    bx,ax
+       8048441:	66 8b c2             	mov    ax,dx
+       8048444:	66 8b d0             	mov    dx,ax
+       8048447:	66 8b de             	mov    bx,si
+       804844a:	66 8b f3             	mov    si,bx
+       804844d:	66 8b c4             	mov    ax,sp
+       8048450:	66 8b e0             	mov    sp,ax
+       8048453:	66 8b c5             	mov    ax,bp
+       8048456:	66 8b e8             	mov    bp,ax
+       8048459:	66 8b ef             	mov    bp,di
+       804845c:	66 8b fd             	mov    di,bp
+       804845f:	90                   	nop

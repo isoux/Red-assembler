@@ -34,17 +34,32 @@ general-regs: {
 }
 
 AL: declare argument!
+BL: declare argument!
 CL: declare argument!
 DL: declare argument!
-BL: declare argument!
+
 AH: declare argument!
+BH: declare argument!
 CH: declare argument!
 DH: declare argument!
-BH: declare argument!
+
+AX: declare argument!
+BX: declare argument!
+CX: declare argument!
+DX: declare argument!
+
+SP: declare argument!
+BP: declare argument!
+SI: declare argument!
+DI: declare argument!
 
 AL/id: _AL
 AL/name: "AL"
 AL/type: reg8
+
+BL/id: _BL
+BL/name: "BL"
+BL/type: reg8
 
 CL/id: _CL
 CL/name: "CL"
@@ -54,13 +69,13 @@ DL/id: _DL
 DL/name: "DL"
 DL/type: reg8
 
-BL/id: _BL
-BL/name: "BL"
-BL/type: reg8
-
 AH/id: _AH
 AH/name: "AH"
 AH/type: reg8
+
+BH/id: _BH
+BH/name: "BH"
+BH/type: reg8
 
 CH/id: _CH
 CH/name: "CH"
@@ -70,6 +85,34 @@ DH/id: _DH
 DH/name: "DH"
 DH/type: reg8
 
-BH/id: _BH
-BH/name: "BH"
-BH/type: reg8
+AX/id: _AX
+AX/name: "AX"
+AX/type: reg16
+
+BX/id: _BX
+BX/name: "BX"
+BX/type: reg16
+
+CX/id: _CX
+CX/name: "CX"
+CX/type: reg16
+
+DX/id: _DX
+DX/name: "DX"
+DX/type: reg16
+
+SP/id: _SP
+SP/name: "SP"
+SP/type: reg16
+
+BP/id: _BP
+BP/name: "BP"
+BP/type: reg16
+
+SI/id: _SI
+SI/name: "SI"
+SI/type: reg16
+
+DI/id: _DI
+DI/name: "DI"
+DI/type: reg16

@@ -16,25 +16,16 @@ Red/System[
 
 #include %asm.reds
 
+
+; 8-bit
 asm [MOV AL BL]
 asm [mov bl al]
 
-asm [mov al cl]
-asm [mov cl al]
-
-asm [MoV AL DL]
-asm [mov Dl Al]
-;--------------
 asm [MOV bl Cl]
 asm [mov cL BL]
 
 asm [MOV BL DL]
 asm [mov Dl Bl]
-;--------------
-
-asm [MOV CL DL]
-asm [mov Dl Cl]
-;--------------
 
 asm [mov al ah]
 asm [mov ah al]
@@ -42,8 +33,24 @@ asm [mov ah al]
 asm [mov ah cl]
 asm [mov cl ah]
 
-asm [mov DH BH]
-; etc
+;16-bit
+asm [mov ax bx]
+asm [mov bx ax]
+
+asm [MoV AX DX]
+asm [mov DX AX]
+
+asm [MOV bx si]
+asm [mov si bx]
+
+asm [mov ax sp]
+asm [mov sp ax]
+
+asm [mov ax bp]
+asm [mov bp ax]
+
+asm [mov bp di]
+asm [MOV di bp]
 
 either in-str-table! general-regs AL/name [
     print " In string table : YES!"
