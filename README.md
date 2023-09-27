@@ -19,9 +19,9 @@ Try it:
 To check if the instructions are correct:
 
        $ redc dis_asm.reds
-       $ objdump -D -z -M intel dis_asm  > dis_asm.dmp
+       $ objdump -D -z -M intel dis_asm > dis_asm.dmp
        or
-       $ llvm-objdump -D -z --x86-asm-syntax=intel dis_asm  > dis_asm.dmp
+       $ llvm-objdump -D -z --x86-asm-syntax=intel dis_asm > dis_asm.dmp
 In the file dis_asm.dmp at the section .text: somewhere in the middle you should find similar content:
 
        8048426:	90                   	nop
