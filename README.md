@@ -1,6 +1,8 @@
 # Red-assembler
 Assembler for Red/System based exclusively on the Red programming language
 
+With the Red language, the fun and enjoyment of programming is truly back to me the poor one "programmer"! 
+
 The basic idea, as the first step and the fastest way, was to insert the code in the Red/System files that will process the assembler instruction and then pass it to the directive  #inline #{xxxx} ...
 
 But the #inline directive does not accept any variable other than a hard-coded value of type binary! ( Like #inline #{88C3} )
