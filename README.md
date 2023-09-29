@@ -13,6 +13,7 @@ The project is at the very beginning and is waiting for "positive" reactions and
 It will definitely benefit me...
 
 Unfortunately, since I'm at the very beginning, so far only one MOV instruction has been processed and that's only for general registers and immediate transfers to registers ... not yet for memory locations.
+I added the bswap instruction because I really needed it and it was easy to implement.
 
 Try it:
 
