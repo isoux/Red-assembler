@@ -22,7 +22,7 @@ _bswap: func [
         opcode [integer!] 
         res    [c-string!] 
 ][
-    if all [arg1 <> null][ 
+    if arg1 <> null [ 
         either arg1/type = reg32 [
             opcode: 0FC8h or arg1/id
             res: to-hex opcode yes
