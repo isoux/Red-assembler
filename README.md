@@ -16,6 +16,9 @@ Unfortunately, since I'm at the very beginning, so far only one MOV instruction 
 
 Try it:
 
+        $ ./run.sh
+or step by step:
+
         $ redc test.reds
         $ ./test
 To check if the instructions are correct:
