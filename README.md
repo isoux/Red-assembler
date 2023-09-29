@@ -29,11 +29,12 @@ To check if the instructions are correct:
        $ llvm-objdump -d -z --x86-asm-syntax=intel dis_asm > dis_asm.dmp
 In the file dis_asm.dmp at the section .text: somewhere in the middle you should find similar content:
 
-       8048426:	90                   	nop
-       8048427:	8a c3                	mov    al,bl
-       8048429:	8a e7                	mov    ah,bh
-       804842b:	8b c3                	mov    eax,ebx
-       804842d:	b0 cf                	mov    al,0xcf
-       804842f:	66 b8 6e a0          	mov    ax,0xa06e
-       8048433:	bb a4 c3 b2 f1       	mov    ebx,0xf1b2c3a4
-       8048438:	90                   	nop
+       8048427:	90                   	nop
+       8048428:	0f cb                	bswap  ebx
+       804842a:	8a c3                	mov    al,bl
+       804842c:	8a e7                	mov    ah,bh
+       804842e:	8b c3                	mov    eax,ebx
+       8048430:	b0 cf                	mov    al,0xcf
+       8048432:	66 b8 6e a0          	mov    ax,0xa06e
+       8048436:	bb a4 c3 b2 f1       	mov    ebx,0xf1b2c3a4
+       804843b:	90                   	nop

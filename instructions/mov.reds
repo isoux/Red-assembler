@@ -31,7 +31,7 @@ print-opcode: func [
     print ["#inline #{"ext res"}" lf]
 ]
 
-bswap: func [
+byte-swap: func [
     a [integer!]
     return: [integer!]
 ][
@@ -66,12 +66,12 @@ encode-imm: func [
     b: Reg << Shift
     switch Shift [
         8   [Opcode: Opcode or RegM or b]
-        16  [b: bswap RegM RegM: b >> 16
+        16  [b: byte-swap RegM RegM: b >> 16
                 Opcode: Opcode or Reg or RegM 
                 Opcode: Opcode or 66000000h a: 0
             ]
         32  [a: Opcode or Reg 
-                b: bswap RegM
+                b: byte-swap RegM
                 Opcode: b
             ]
     ]

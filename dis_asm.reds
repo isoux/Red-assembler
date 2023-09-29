@@ -15,6 +15,7 @@ Red/System [
 ]
 
 #inline #{909090909090} ; for easier finding in the objdump file
+#inline #{0FCB}
 #inline #{8AC3}
 #inline #{8AE7}
 #inline #{8BC3}

@@ -11,6 +11,7 @@ Red/System [
 ]
 
 #include %../instructions/mov.reds
+#include %../instructions/bswap.reds
 
 instruction!: alias struct! [
     name  [c-string!]
@@ -18,10 +19,13 @@ instruction!: alias struct! [
     argc  [integer!]
 ]
 
-mov: declare instruction!
-;add: declare instruction!
+bswap: declare instruction!
+mov:   declare instruction!
 ;etc
+
+bswap/name: "bswap"
+bswap/proc: as bswap! :_bswap
 
 mov/name: "mov"
 mov/proc: as mov! :_mov
-;add/name: "add"
+
