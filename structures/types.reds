@@ -36,10 +36,12 @@ reg32:  declare type!
 imm8:   declare type!
 imm16:  declare type!
 imm32:  declare type!
+imm:    declare type!
 ;imm64: declare type!
 mem8:   declare type!
 mem16:  declare type!
 mem32:  declare type!
+mem:    declare type!
 ;mem64: declare type!
 
 reg8/id:    _reg8
@@ -48,6 +50,7 @@ reg32/id:   _reg32
 imm8/id:    _imm8
 imm16/id:   _imm16
 imm32/id:   _imm32
+imm/id:     _imm32
 mem8/id:    _mem8
 mem16/id:   _mem16
 mem32/id:   _mem32

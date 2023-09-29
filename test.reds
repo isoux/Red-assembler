@@ -16,47 +16,16 @@ Red/System[
 
 #include %asm.reds
 
+; Register to register
+asm [mov al bl]
+asm [mov ah bh]
+asm [mov eax ebx]
 
-; 8-bit
-asm [MOV AL BL]
-asm [mov bl al]
+; Immediate to register
+asm [mov al  CFh]
+asm [mov ax  A06Eh]
+asm [mov ebx F1B2C3A4h]
 
-asm [MOV bl Cl]
-asm [mov cL BL]
 
-asm [MOV BL DL]
-asm [mov Dl Bl]
-
-asm [mov al ah]
-asm [mov ah al]
-
-asm [mov ah cl]
-asm [mov cl ah]
-
-;16-bit
-asm [mov ax bx]
-asm [mov bx ax]
-
-asm [MoV AX DX]
-asm [mov DX AX]
-
-asm [MOV bx si]
-asm [mov si bx]
-
-asm [mov ax sp]
-asm [mov sp ax]
-
-asm [mov ax bp]
-asm [mov bp ax]
-
-asm [mov bp di]
-asm [MOV di bp]
-
-either in-str-table! general-regs AL/name [
-    print " In string table : YES!"
-][
-    print " In string table : NO!"
-]
-print newline
 
 

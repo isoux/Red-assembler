@@ -33,11 +33,11 @@ asm: func [
     arg-indx: 1
     argc: count - 1
     until [
-       if list/type = system/alias/instruction! [
+        if list/type = system/alias/instruction! [
             inst: as instruction! list/value
             inst/argc: argc
-       ]
-       if list/type = system/alias/argument! [
+        ]
+        if list/type = system/alias/argument! [
             arg: as argument! list/value
             either arg-indx = 1 [
                 arg1: arg
@@ -45,11 +45,18 @@ asm: func [
             ][
                 arg2: arg
             ]   
-       ]
-       ; Further processing of input arguments
-       list: list + 1
-       count: count - 1
-       zero? count
+        ]
+        ; Further processing of input arguments
+        if list/type = type-integer! [
+            if arg-indx = 2 [
+                arg2: declare argument!
+                arg2/type: imm
+                arg2/value: list/value
+            ]
+        ]
+        list: list + 1
+        count: count - 1
+        zero? count
     ]
     inst/proc arg1 arg2 ; Call procedure of detected instruction
 ]

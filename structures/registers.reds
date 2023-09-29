@@ -53,6 +53,16 @@ BP: declare argument!
 SI: declare argument!
 DI: declare argument!
 
+EAX: declare argument!
+EBX: declare argument!
+ECX: declare argument!
+EDX: declare argument!
+
+ESP: declare argument!
+EBP: declare argument!
+ESI: declare argument!
+EDI: declare argument!
+
 AL/id: _AL
 AL/name: "AL"
 AL/type: reg8
@@ -116,3 +126,35 @@ SI/type: reg16
 DI/id: _DI
 DI/name: "DI"
 DI/type: reg16
+
+EAX/id: _EAX
+EAX/name: "EAX"
+EAX/type: reg32
+
+EBX/id: _EBX
+EBX/name: "EBX"
+EBX/type: reg32
+
+ECX/id: _ECX
+ECX/name: "ECX"
+ECX/type: reg32
+
+EDX/id: _EDX
+EDX/name: "EDX"
+EDX/type: reg32
+
+ESP/id: _ESP
+ESP/name: "ESP"
+ESP/type: reg32
+
+EBP/id: _EBP
+EBP/name: "EBP"
+EBP/type: reg32
+
+ESI/id: _ESI
+ESI/name: "ESI"
+ESI/type: reg32
+
+EDI/id: _EDI
+EDI/name: "EDI"
+EDI/type: reg32
