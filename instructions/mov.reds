@@ -99,9 +99,9 @@ _mov: func [
             if any [arg1/type = reg8 arg1/type = reg16 arg1/type = reg32][
                 a: arg2/value
                 if arg2/type = imm [
-                    if all [a >= 0 a <= FFh][Opcode: B000h Shift: 8]
+                    if all [a >= 0 a <= FFh]   [Opcode: B000h Shift: 8]
                     if all [a > FFh a <= FFFFh][Opcode: B80000h Shift: 16]
-                    if any [a < 0 a > FFFFh][Opcode: B8h Shift: 32]
+                    if any [a < 0 a > FFFFh]   [Opcode: B8h Shift: 32]
                 ]
                 encode-imm Opcode arg1/id arg2/value Shift
                 if arg2/type = mem [
