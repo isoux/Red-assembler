@@ -101,17 +101,15 @@ _mov: func [
                 if arg2/type = imm [
                     if all [a >= 0 a <= FFh][
                         Opcode: B000h Shift: 8
-                        encode-imm Opcode arg1/id arg2/value Shift
                     ]
                     if all [a > FFh a <= FFFFh][
                         Opcode: B80000h Shift: 16
-                        encode-imm Opcode arg1/id arg2/value Shift
                     ]
                     if any [a < 0 a > FFFFh][
                         Opcode: B8h Shift: 32
-                        encode-imm Opcode arg1/id arg2/value Shift
                     ]
                 ]
+                encode-imm Opcode arg1/id arg2/value Shift
                 if arg2/type = mem [
                     print ["Find mem!" lf]
                 ]
