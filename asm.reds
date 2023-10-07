@@ -20,16 +20,20 @@ Red/System [
 #include %structures/registers.reds
 #include %structures/instructions.reds
 
+
 asm: func [
     [typed] count [integer!] list [typed-value!]
     /local
         inst [instruction!]
         arg  [argument!]
         arg1 [argument!]
-        arg2 [argument!] 
+        arg2 [argument!]
+        arg3 [argument!]
+        type [type!] 
         argc [integer!]
         arg-indx [integer!]
 ][
+    arg3: null
     arg-indx: 1
     argc: count - 1
     until [
@@ -46,17 +50,27 @@ asm: func [
                 arg2: arg
             ]   
         ]
-        ; Further processing of input arguments
+        if list/type = system/alias/type! [
+            type: as type! list/value
+            arg3: declare argument!
+            arg3/id: 0
+            arg3/type: type
+        ]
         if list/type = type-integer! [
             if arg-indx = 2 [
                 arg2: declare argument!
-                arg2/type: imm
+                either arg3 <> null [
+                    arg2/type: mem
+                ][
+                    arg2/type: imm
+                ]
                 arg2/value: list/value
             ]
         ]
+        ; Further processing of input arguments
         list: list + 1
         count: count - 1
         zero? count
     ]
-    inst/proc arg1 arg2 ; Call procedure of detected instruction
+    inst/proc arg1 arg2 arg3 ; Call procedure of detected instruction
 ]
