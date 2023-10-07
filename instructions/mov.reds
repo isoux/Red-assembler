@@ -14,7 +14,7 @@ Red/System [
     }
 ]
 
-mov!: alias function! [arg1 [argument!] arg2 [argument!]]
+mov!: alias function! [arg1 [argument!] arg2 [argument!] arg3 [argument!]]
 
 print-opcode: func [
     Opcode  [integer!]
@@ -65,7 +65,7 @@ encode-imm: func [
 ][
     b: Reg << Shift
     switch Shift [
-        8   [Opcode: Opcode or RegM or b]
+        8   [Opcode: Opcode or RegM or b a: 0]
         16  [b: byte-swap RegM RegM: b >> 16
                 Opcode: Opcode or Reg or RegM 
                 Opcode: Opcode or 66000000h a: 0
@@ -78,11 +78,24 @@ encode-imm: func [
     print-opcode Opcode a
 ]
 
+encode-moffs: func [
+    Opcode  [integer!]
+    mem     [integer!]
+    SIB     [integer!]
+][
+    mem: byte-swap mem
+    mem: mem or SIB
+    print-opcode mem Opcode
+]
+
 _mov: func [
     arg1 [argument!]
     arg2 [argument!]
+    arg3 [argument!]
     /local
+        type   [type!]
         ModRM  [integer!]
+        SIB    [integer!]
         Opcode [integer!]
         Shift  [integer!]
         a      [integer!]  
@@ -102,10 +115,24 @@ _mov: func [
                     if all [a >= 0 a <= FFh]   [Opcode: B000h Shift: 8]
                     if all [a > FFh a <= FFFFh][Opcode: B80000h Shift: 16]
                     if any [a < 0 a > FFFFh]   [Opcode: B8h Shift: 32]
+                    encode-imm Opcode arg1/id arg2/value Shift
                 ]
-                encode-imm Opcode arg1/id arg2/value Shift
-                if arg2/type = mem [
-                    print ["Find mem!" lf]
+                if arg2/type = mem [ 
+                    type: arg3/type
+                    if any [type = byte-ptr type = word-ptr type = dword-ptr][
+                        switch type/id [
+                            _moffs8  [
+                                if arg1 = AL [
+                                    SIB: 0
+                                    Opcode: A0h
+                                    ModRM: arg2/value
+                                ]
+                            ]
+                            _moffs16 []
+                            _moffs32 []
+                        ]
+                        encode-moffs Opcode ModRM SIB
+                    ]  
                 ]
             ]
         ]
