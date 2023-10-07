@@ -15,7 +15,7 @@ Red/System [
 
 instruction!: alias struct! [
     name  [c-string!]
-    proc  [function![arg1 [argument!] arg2 [argument!]]]
+    proc  [function![arg1 [argument!] arg2 [argument!] arg3 [argument!]]]
     argc  [integer!]
 ]
 
@@ -28,4 +28,3 @@ bswap/proc: as bswap! :_bswap
 
 mov/name: "mov"
 mov/proc: as mov! :_mov
-

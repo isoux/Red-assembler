@@ -13,11 +13,10 @@ Red/System [
     }
 ]
 
-bswap!: alias function! [arg1 [argument!] arg2 [argument!]]
+bswap!: alias function! [arg1 [argument!] arg2 [argument!] arg3 [argument!]]
 
 _bswap: func [
     arg1 [argument!]
-    arg2 [argument!]
     /local
         opcode [integer!] 
         res    [c-string!] 
