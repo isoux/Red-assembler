@@ -26,7 +26,7 @@ asm [mov al  CFh]
 asm [mov ax  A06Eh]
 asm [mov ebx F1B2C3A4h]
 
-; Memmory to register & vice versa
+; Memmory to register
 asm [mov al byte-ptr ABCDEF48h] ; load byte to AL from mem-location
 
 ; Byte swap
