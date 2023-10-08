@@ -18,17 +18,26 @@ mov!: alias function! [arg1 [argument!] arg2 [argument!] arg3 [argument!]]
 
 print-opcode: func [
     Opcode  [integer!]
-    Extend  [integer!]
+    Prefix  [integer!]
     /local
-        res [c-string!]
-        ext [c-string!]
+        pref [c-string!]
+        res  [c-string!]
 ][
-    ext: ""
+    pref: ""
     res: to-hex Opcode yes
-    if Extend <> 0 [
-        ext: byte-to-hex Extend yes
+    either Prefix <> 0 [
+        either all [Prefix >= 0 Prefix <= FFh] [
+            pref: byte-to-hex Prefix yes
+            print ["#inline #{"pref res"}" lf]
+        ][
+            pref: to-hex Prefix yes  ; A trick is used here, because  
+            print ["#inline #{"pref] ; the allocated strings on the local - 
+            res: to-hex Opcode yes   ; stack mix into each other's contents
+            print [res"}" lf]        ; when to-hex is called twice in a row!?
+        ]
+    ][
+        print ["#inline #{"res"}" lf]
     ]
-    print ["#inline #{"ext res"}" lf]
 ]
 
 byte-swap: func [
@@ -81,10 +90,8 @@ encode-imm: func [
 encode-moffs: func [
     Opcode  [integer!]
     mem     [integer!]
-    SIB     [integer!]
 ][
     mem: byte-swap mem
-    mem: mem or SIB
     print-opcode mem Opcode
 ]
 
@@ -122,16 +129,18 @@ _mov: func [
                     if any [type = byte-ptr type = word-ptr type = dword-ptr][
                         switch type/id [
                             _moffs8  [
-                                if arg1 = AL [
-                                    SIB: 0
+                                either arg1 = AL [
                                     Opcode: A0h
-                                    ModRM: arg2/value
+                                ][
+                                    SIB: 5
+                                    Opcode: arg1/id << 3 or SIB or 8A00h
                                 ]
+                                a: arg2/value
                             ]
                             _moffs16 []
                             _moffs32 []
                         ]
-                        encode-moffs Opcode ModRM SIB
+                        encode-moffs Opcode a
                     ]  
                 ]
             ]
