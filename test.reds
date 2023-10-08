@@ -28,6 +28,7 @@ asm [mov ebx F1B2C3A4h]
 
 ; Memmory to register
 asm [mov al byte-ptr ABCDEF48h] ; load byte to AL from mem-location
+asm [mov bl byte-ptr C5B6h]
 
 ; Byte swap
 asm [bswap ebx]

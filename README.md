@@ -38,5 +38,6 @@ In the file dis_asm.dmp at the section .text: somewhere in the middle you should
        8048430:	66 b8 6e a0          	mov    ax,0xa06e
        8048434:	bb a4 c3 b2 f1       	mov    ebx,0xf1b2c3a4
        8048439:	a0 48 ef cd ab       	mov    al,ds:0xabcdef48
-       804843e:	0f cb                	bswap  ebx
-       8048440:	90                   	nop
+       804843e:	8a 1d b6 c5 00 00    	mov    bl,BYTE PTR ds:0xc5b6
+       8048444:	0f cb                	bswap  ebx
+       8048446:	90                   	nop
