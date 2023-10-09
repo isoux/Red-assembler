@@ -29,6 +29,20 @@ asm [mov ebx F1B2C3A4h]
 ; Memmory to register
 asm [mov al byte-ptr ABCDEF48h] ; load byte to AL from mem-location
 asm [mov bl byte-ptr C5B6h]
+asm [mov ah byte-ptr ABCDEF48h] 
+asm [mov bh byte-ptr ABCDEF48h] 
+asm [mov ch byte-ptr ABCDEF48h] 
+asm [mov dh byte-ptr ABCDEF48h] 
+
+asm [mov ax word-ptr 1A2B3C4Dh]
+asm [mov bx word-ptr 1A2B3C4Dh]
+asm [mov cx word-ptr 1A2B3C4Dh]
+asm [mov dx word-ptr 1A2B3C4Dh]
+
+asm [mov eax dword-ptr FEDCAB98h]
+asm [mov ebx dword-ptr FEDCAB98h]
+asm [mov ecx dword-ptr FEDCAB98h]
+asm [mov edx dword-ptr FEDCAB98h]
 
 ; Byte swap
 asm [bswap ebx]

@@ -23,5 +23,17 @@ Red/System [
 #inline #{BBA4C3B2F1}
 #inline #{A048EFCDAB}
 #inline #{8A1DB6C50000}
+#inline #{8A2548EFCDAB}
+#inline #{8A3D48EFCDAB}
+#inline #{8A2D48EFCDAB}
+#inline #{8A3548EFCDAB}
+#inline #{66A14D3C2B1A}
+#inline #{668B1D4D3C2B1A}
+#inline #{668B0D4D3C2B1A}
+#inline #{668B154D3C2B1A}
+#inline #{A198ABDCFE}
+#inline #{8B1D98ABDCFE}
+#inline #{8B0D98ABDCFE}
+#inline #{8B1598ABDCFE}
 #inline #{0FCB}
 #inline #{909090909090}
