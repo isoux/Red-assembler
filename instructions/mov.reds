@@ -100,47 +100,43 @@ _mov: func [
     arg2 [argument!]
     arg3 [argument!]
     /local
-        type   [type!]
-        ModRM  [integer!]
-        SIB    [integer!]
-        Opcode [integer!]
-        Shift  [integer!]
-        a      [integer!]  
+        type  [type!]
+        ModRM [integer!]
+        SIB   [integer!]
+        Opc   [integer!]
+        Shift [integer!]
+        a     [integer!]  
 ][
     if all [arg1 <> null arg2 <> null][ 
         either arg1/type = arg2/type [
             switch arg1/type/id [
-                _reg8  [ModRM: C0h Opcode: 8A00h] 
-                _reg16 [ModRM: C0h Opcode: 668B00h]
-                _reg32 [ModRM: C0h Opcode: 8B00h]
+                _reg8  [ModRM: C0h Opc: 8A00h] 
+                _reg16 [ModRM: C0h Opc: 668B00h]
+                _reg32 [ModRM: C0h Opc: 8B00h]
             ]
-            encode-reg Opcode ModRM arg1/id arg2/id
+            encode-reg Opc ModRM arg1/id arg2/id
         ][
-            if any [arg1/type = reg8 arg1/type = reg16 arg1/type = reg32][
+            type: arg1/type
+            if any [type = reg8 type = reg16 type = reg32][
                 a: arg2/value
                 if arg2/type = imm [
-                    if all [a >= 0 a <= FFh]   [Opcode: B000h Shift: 8]
-                    if all [a > FFh a <= FFFFh][Opcode: B80000h Shift: 16]
-                    if any [a < 0 a > FFFFh]   [Opcode: B8h Shift: 32]
-                    encode-imm Opcode arg1/id arg2/value Shift
+                    if all [a >= 0 a <= FFh]   [Opc: B000h Shift: 8]
+                    if all [a > FFh a <= FFFFh][Opc: B80000h Shift: 16]
+                    if any [a < 0 a > FFFFh]   [Opc: B8h Shift: 32]
+                    encode-imm Opc arg1/id arg2/value Shift
                 ]
                 if arg2/type = mem [ 
                     type: arg3/type
                     if any [type = byte-ptr type = word-ptr type = dword-ptr][
+                        ModRM: arg1/id << 3
+                        SIB: 5
+                        Opc: ModRM or SIB
                         switch type/id [
-                            _moffs8  [
-                                either arg1 = AL [
-                                    Opcode: A0h
-                                ][
-                                    SIB: 5
-                                    Opcode: arg1/id << 3 or SIB or 8A00h
-                                ]
-                                a: arg2/value
-                            ]
-                            _moffs16 []
-                            _moffs32 []
+                            _moffs8  [either arg1 = AL  [Opc: A0h]  [Opc: Opc or 8A00h]]
+                            _moffs16 [either arg1 = AX  [Opc: 66A1h][Opc: Opc or 668B00h]]
+                            _moffs32 [either arg1 = EAX [Opc: A1h]  [Opc: Opc or 8B00h]]
                         ]
-                        encode-moffs Opcode a
+                        encode-moffs Opc arg2/value
                     ]  
                 ]
             ]
