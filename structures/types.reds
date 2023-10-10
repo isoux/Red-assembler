@@ -13,7 +13,7 @@ Red/System [
 #enum Types! [
     _reg8:   1
     _reg16:  2
-    _reg32:  3
+    _reg32: _reg: 3
     _reg64:  4
     _imm8:   5
     _imm16:  6
