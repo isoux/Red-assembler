@@ -38,18 +38,20 @@ In the file dis_asm.dmp at the section .text: somewhere in the middle you should
        8048430:	66 b8 6e a0          	mov    ax,0xa06e
        8048434:	bb a4 c3 b2 f1       	mov    ebx,0xf1b2c3a4
        8048439:	a0 48 ef cd ab       	mov    al,ds:0xabcdef48
-       804843e:	8a 1d b6 c5 00 00    	mov    bl,BYTE PTR ds:0xc5b6
+       804843e:	8a 0d b6 c5 00 00    	mov    cl,BYTE PTR ds:0xc5b6
        8048444:	8a 25 48 ef cd ab    	mov    ah,BYTE PTR ds:0xabcdef48
        804844a:	8a 3d 48 ef cd ab    	mov    bh,BYTE PTR ds:0xabcdef48
-       8048450:	8a 2d 48 ef cd ab    	mov    ch,BYTE PTR ds:0xabcdef48
-       8048456:	8a 35 48 ef cd ab    	mov    dh,BYTE PTR ds:0xabcdef48
-       804845c:	66 a1 4d 3c 2b 1a    	mov    ax,ds:0x1a2b3c4d
-       8048462:	66 8b 1d 4d 3c 2b 1a 	mov    bx,WORD PTR ds:0x1a2b3c4d
-       8048469:	66 8b 0d 4d 3c 2b 1a 	mov    cx,WORD PTR ds:0x1a2b3c4d
-       8048470:	66 8b 15 4d 3c 2b 1a 	mov    dx,WORD PTR ds:0x1a2b3c4d
-       8048477:	a1 98 ab dc fe       	mov    eax,ds:0xfedcab98
-       804847c:	8b 1d 98 ab dc fe    	mov    ebx,DWORD PTR ds:0xfedcab98
-       8048482:	8b 0d 98 ab dc fe    	mov    ecx,DWORD PTR ds:0xfedcab98
-       8048488:	8b 15 98 ab dc fe    	mov    edx,DWORD PTR ds:0xfedcab98
-       804848e:	0f cb                	bswap  ebx
-       8048490:	90                   	nop
+       8048450:	66 a1 4d 3c 2b 1a    	mov    ax,ds:0x1a2b3c4d
+       8048456:	66 8b 0d 4d 3c 2b 1a 	mov    cx,WORD PTR ds:0x1a2b3c4d
+       804845d:	a1 98 ab dc fe       	mov    eax,ds:0xfedcab98
+       8048462:	8b 15 98 ab dc fe    	mov    edx,DWORD PTR ds:0xfedcab98
+       8048468:	a2 98 ab dc fe       	mov    ds:0xfedcab98,al
+       804846d:	88 0d 98 ab dc fe    	mov    BYTE PTR ds:0xfedcab98,cl
+       8048473:	88 25 98 ab dc fe    	mov    BYTE PTR ds:0xfedcab98,ah
+       8048479:	88 3d 98 ab dc fe    	mov    BYTE PTR ds:0xfedcab98,bh
+       804847f:	66 a3 98 ab dc fe    	mov    ds:0xfedcab98,ax
+       8048485:	66 89 15 98 ab dc fe 	mov    WORD PTR ds:0xfedcab98,dx
+       804848c:	a3 98 ab dc fe       	mov    ds:0xfedcab98,eax
+       8048491:	89 1d 98 ab dc fe    	mov    DWORD PTR ds:0xfedcab98,ebx
+       8048497:	0f cb                	bswap  ebx
+       8048499:	90                   	nop

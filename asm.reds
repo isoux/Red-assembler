@@ -57,7 +57,7 @@ asm: func [
             arg3/type: type
         ]
         if list/type = type-integer! [
-            if arg-indx = 2 [
+            either arg-indx = 2 [
                 arg2: declare argument!
                 either arg3 <> null [
                     arg2/type: mem
@@ -65,6 +65,15 @@ asm: func [
                     arg2/type: imm
                 ]
                 arg2/value: list/value
+            ][
+                arg1: declare argument!
+                either arg3 <> null [
+                    arg1/type: mem
+                ][
+                    arg1/type: imm
+                ]
+                arg1/value: list/value
+                arg-indx: arg-indx + 1
             ]
         ]
         ; Further processing of input arguments

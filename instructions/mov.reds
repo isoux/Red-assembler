@@ -129,7 +129,7 @@ _mov: func [
                     type: arg3/type
                     if any [type = byte-ptr type = word-ptr type = dword-ptr][
                         ModRM: arg1/id << 3
-                        SIB: 5
+                        SIB: 5 Opc: 0
                         Opc: ModRM or SIB
                         switch type/id [
                             _moffs8  [either arg1 = AL  [Opc: A0h]  [Opc: Opc or 8A00h]]
@@ -139,6 +139,21 @@ _mov: func [
                         encode-moffs Opc arg2/value
                     ]  
                 ]
+            ]
+            if type = mem [
+                type: arg2/type
+                if any [type = reg8 type = reg16 type = reg32][
+                    ModRM: arg2/id << 3
+                    SIB: 5 Opc: 0
+                    Opc: ModRM or SIB
+                    switch type/id [
+                        _reg8  [either arg2 = AL  [Opc: A2h]  [Opc: Opc or 8800h]] 
+                        _reg16 [either arg2 = AX  [Opc: 66A3h][Opc: Opc or 668900h]]
+                        _reg32 [either arg2 = EAX [Opc: A3h]  [Opc: Opc or 8900h]]
+                    ]
+                    encode-moffs Opc arg1/value
+                ]
+
             ]
         ]
     ]
