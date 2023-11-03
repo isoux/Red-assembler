@@ -93,7 +93,7 @@ encode-imm: func [
 ]
 
 encode-moffs: func [
-    Opc [integer!]
+    Opc    [integer!]
     mem    [integer!]
     SegReg [integer!]
     /local  
@@ -106,11 +106,9 @@ encode-moffs: func [
         if all [a > FFh a <= FFFFh] [Opc: SegReg << 16 or Opc]
         if any [a < 0 a > FFFFh] [
             Opc: SegReg << 24 or Opc
-            ;a: Opc and 00660000h
             a: Opc and FFFFh
             Opc: byte-swap Opc
             Opc: Opc << 16 or a
-            ;print ["a: "a "Opc: " Opc lf]
         ]
     ]
     print-opcode mem Opc
