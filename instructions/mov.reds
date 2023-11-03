@@ -14,7 +14,12 @@ Red/System [
     }
 ]
 
-mov!: alias function! [arg1 [argument!] arg2 [argument!] arg3 [argument!]]
+mov!: alias function! [
+    arg1 [argument!] 
+    arg2 [argument!] 
+    arg3 [argument!]
+    arg4 [argument!]
+]
 
 print-opcode: func [
     Opcode  [integer!]
@@ -88,32 +93,52 @@ encode-imm: func [
 ]
 
 encode-moffs: func [
-    Opcode  [integer!]
-    mem     [integer!]
+    Opc [integer!]
+    mem    [integer!]
+    SegReg [integer!]
+    /local  
+        a [integer!]
 ][
     mem: byte-swap mem
-    print-opcode mem Opcode
+    if SegReg > 0 [
+        a: Opc
+        if all [a >= 0 a <= FFh] [Opc: SegReg << 8 or Opc]
+        if all [a > FFh a <= FFFFh] [Opc: SegReg << 16 or Opc]
+        if any [a < 0 a > FFFFh] [
+            Opc: SegReg << 24 or Opc
+            ;a: Opc and 00660000h
+            a: Opc and FFFFh
+            Opc: byte-swap Opc
+            Opc: Opc << 16 or a
+            ;print ["a: "a "Opc: " Opc lf]
+        ]
+    ]
+    print-opcode mem Opc
 ]
 
 _mov: func [
     arg1 [argument!]
     arg2 [argument!]
     arg3 [argument!]
+    arg4 [argument!]
     /local
         type  [type!]
         ModRM [integer!]
         SIB   [integer!]
         Opc   [integer!]
         Shift [integer!]
+        SegReg[integer!]
         a     [integer!]  
 ][
+    SegReg: 0
     if all [arg1 <> null arg2 <> null][ 
         either arg1/type = arg2/type [
             switch arg1/type/id [
-                _reg8  [ModRM: C0h Opc: 8A00h] 
-                _reg16 [ModRM: C0h Opc: 668B00h]
-                _reg32 [ModRM: C0h Opc: 8B00h]
+                _reg8  [Opc: 8A00h] 
+                _reg16 [Opc: 668B00h]
+                _reg32 [Opc: 8B00h]
             ]
+            ModRM: C0h
             encode-reg Opc ModRM arg1/id arg2/id
         ][
             type: arg1/type
@@ -136,13 +161,23 @@ _mov: func [
                             _moffs16 [either arg1 = AX  [Opc: 66A1h][Opc: Opc or 668B00h]]
                             _moffs32 [either arg1 = EAX [Opc: A1h]  [Opc: Opc or 8B00h]]
                         ]
-                        encode-moffs Opc arg2/value
+                        encode-moffs Opc arg2/value SegReg
                     ]  
                 ]
             ]
             if type = mem [
                 type: arg2/type
                 if any [type = reg8 type = reg16 type = reg32][
+                    if arg4 <> null [SegReg: arg4/id
+                        switch SegReg [
+                            _es [SegReg: 26h]
+                            _cs [SegReg: 2Eh] ;Is not allowed as: (mov ptr cs:mem_loc reg)!
+                            _ss [SegReg: 36h]
+                            _ds [SegReg: 3Eh]
+                            _fs [SegReg: 64h]
+                            _gs [SegReg: 65h]
+                        ]
+                    ]
                     ModRM: arg2/id << 3
                     SIB: 5 Opc: 0
                     Opc: ModRM or SIB
@@ -151,7 +186,7 @@ _mov: func [
                         _reg16 [either arg2 = AX  [Opc: 66A3h][Opc: Opc or 668900h]]
                         _reg32 [either arg2 = EAX [Opc: A3h]  [Opc: Opc or 8900h]]
                     ]
-                    encode-moffs Opc arg1/value
+                    encode-moffs Opc arg1/value SegReg
                 ]
 
             ]
