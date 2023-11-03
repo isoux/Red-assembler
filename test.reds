@@ -50,5 +50,16 @@ asm [mov word-ptr FEDCAB98h dx]
 asm [mov dword-ptr FEDCAB98h eax]
 asm [mov dword-ptr FEDCAB98h ebx]
 
+; Register to specific memory segment
+asm [mov byte-ptr fs FEDCAB98h al]  ; load AL to byte ptr of fs:mem-location
+asm [mov byte-ptr gs FEDCAB98h cl]
+
+asm [mov word-ptr ss FEDCAB98h bx]
+asm [mov word-ptr es FEDCAB98h dx]
+
+asm [mov dword-ptr ds FEDCAB98h eax]
+asm [mov dword-ptr fs FEDCAB98h esi]
+
 ; Byte swap
 asm [bswap ebx]
+ 

@@ -15,7 +15,13 @@ Red/System [
 
 instruction!: alias struct! [
     name  [c-string!]
-    proc  [function![arg1 [argument!] arg2 [argument!] arg3 [argument!]]]
+    proc  [function![
+          arg1 [argument!] 
+          arg2 [argument!] 
+          arg3 [argument!] 
+          arg4 [argument!]
+        ]
+    ]
     argc  [integer!]
 ]
 

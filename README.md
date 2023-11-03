@@ -53,5 +53,13 @@ In the file dis_asm.dmp at the section .text: somewhere in the middle you should
        8048485:	66 89 15 98 ab dc fe 	mov    WORD PTR ds:0xfedcab98,dx
        804848c:	a3 98 ab dc fe       	mov    ds:0xfedcab98,eax
        8048491:	89 1d 98 ab dc fe    	mov    DWORD PTR ds:0xfedcab98,ebx
-       8048497:	0f cb                	bswap  ebx
-       8048499:	90                   	nop
+       8048497:	64 a2 98 ab dc fe    	mov    fs:0xfedcab98,al
+       804849d:	65 88 0d 98 ab dc fe 	mov    BYTE PTR gs:0xfedcab98,cl
+       80484a4:	66 36 89 1d 98 ab dc 	mov    WORD PTR ss:0xfedcab98,bx
+       80484ab:	fe 
+       80484ac:	66 26 89 15 98 ab dc 	mov    WORD PTR es:0xfedcab98,dx
+       80484b3:	fe 
+       80484b4:	3e a3 98 ab dc fe    	mov    ds:0xfedcab98,eax
+       80484ba:	64 89 35 98 ab dc fe 	mov    DWORD PTR fs:0xfedcab98,esi
+       80484c1:	0f cb                	bswap  ebx
+       80484c3:	90                   	nop

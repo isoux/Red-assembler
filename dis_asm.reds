@@ -38,5 +38,11 @@ Red/System [
 #inline #{66891598ABDCFE}
 #inline #{A398ABDCFE}
 #inline #{891D98ABDCFE}
+#inline #{64A298ABDCFE}
+#inline #{65880D98ABDCFE}
+#inline #{6636891D98ABDCFE}
+#inline #{6626891598ABDCFE}
+#inline #{3EA398ABDCFE}
+#inline #{64893598ABDCFE}
 #inline #{0FCB}
 #inline #{909090909090}
