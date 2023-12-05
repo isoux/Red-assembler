@@ -20,51 +20,51 @@ Red/System[
 #include %asm.reds
 
 ; Register to register
-asm [mov al bl]
-asm [mov ah bh]
-asm [mov eax ebx]
+mov [al bl]
+mov [ah bh]
+mov [eax ebx]
 
 ; Immediate to register
-asm [mov al  CFh]
-asm [mov ax  A06Eh]
-asm [mov ebx F1B2C3A4h]
+mov [al  CFh]
+mov [ax  A06Eh]
+mov [ebx F1B2C3A4h]
 
 ; Memmory to register
-asm [mov al byte-ptr ABCDEF48h]     ; load byte from mem-location to AL
-asm [mov cl byte-ptr C5B6h]
-asm [mov ah byte-ptr ABCDEF48h] 
-asm [mov bh byte-ptr ABCDEF48h] 
+mov [al byte-ptr ABCDEF48h]     ; load byte from mem-location to AL
+mov [cl byte-ptr C5B6h]
+mov [ah byte-ptr ABCDEF48h] 
+mov [bh byte-ptr ABCDEF48h] 
 
-asm [mov ax word-ptr 1A2B3C4Dh]
-asm [mov cx word-ptr 1A2B3C4Dh]
+mov [ax word-ptr 1A2B3C4Dh]
+mov [cx word-ptr 1A2B3C4Dh]
 
-asm [mov eax dword-ptr FEDCAB98h]
-asm [mov edx dword-ptr FEDCAB98h]
+mov [eax dword-ptr FEDCAB98h]
+mov [edx dword-ptr FEDCAB98h]
 
 ; Register to memmory
-asm [mov byte-ptr FEDCAB98h al]     ; load AL to byte ptr of mem-location   
-asm [mov byte-ptr FEDCAB98h cl]
-asm [mov byte-ptr FEDCAB98h ah]
-asm [mov byte-ptr FEDCAB98h bh]
+mov [byte-ptr FEDCAB98h al]     ; load AL to byte ptr of mem-location   
+mov [byte-ptr FEDCAB98h cl]
+mov [byte-ptr FEDCAB98h ah]
+mov [byte-ptr FEDCAB98h bh]
 
-asm [mov word-ptr FEDCAB98h ax]
-asm [mov word-ptr FEDCAB98h dx]
+mov [word-ptr FEDCAB98h ax]
+mov [word-ptr FEDCAB98h dx]
 
-asm [mov dword-ptr FEDCAB98h eax]
-asm [mov dword-ptr FEDCAB98h ebx]
+mov [dword-ptr FEDCAB98h eax]
+mov [dword-ptr FEDCAB98h ebx]
 
 ; Register to specific memory segment
-asm [mov byte-ptr fs FEDCAB98h al]  ; load AL to byte ptr of fs:mem-location
-asm [mov byte-ptr gs FEDCAB98h cl]
+mov [byte-ptr fs FEDCAB98h al]  ; load AL to byte ptr of fs:mem-location
+mov [byte-ptr gs FEDCAB98h cl]
 
-asm [mov word-ptr ss FEDCAB98h bx]
-asm [mov word-ptr es FEDCAB98h dx]
+mov [word-ptr ss FEDCAB98h bx]
+mov [word-ptr es FEDCAB98h dx]
 
-asm [mov dword-ptr ds FEDCAB98h eax]
-asm [mov dword-ptr fs FEDCAB98h esi]
+mov [dword-ptr ds FEDCAB98h eax]
+mov [dword-ptr fs FEDCAB98h esi]
 
 ; Byte swap
-asm [bswap ebx]
+bswap ebx
 
 emit_to_file
 free_alloc
