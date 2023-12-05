@@ -13,8 +13,6 @@ Red/System [
     }
 ]
 
-#include %utils/to-hex.reds
-#include %utils/find-string.reds
 #include %structures/common.reds
 #include %structures/types.reds
 #include %structures/registers.reds

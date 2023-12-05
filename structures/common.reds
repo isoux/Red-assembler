@@ -24,6 +24,11 @@ argument!: alias struct! [
     name  [c-string!]
 ]
 
+short!: alias struct! [
+    a     [byte!]
+    b     [byte!]
+]
+
 
 
 

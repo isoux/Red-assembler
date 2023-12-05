@@ -14,8 +14,8 @@ Red/System [
 #include %../instructions/bswap.reds
 
 instruction!: alias struct! [
-    name  [c-string!]
-    proc  [function![
+    name [c-string!]
+    proc [function![
           arg1 [argument!] 
           arg2 [argument!] 
           arg3 [argument!] 

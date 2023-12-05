@@ -9,11 +9,14 @@ Red/System[
         See https://github.com/isoux/Red-assembler/blob/main/LICENSE
     }
     Note: {
-        The processing result is printed on the command line in the 
-        form #inline #{xxxx...}
+        The processing result is emitted to text.bin file like a valid binary file.
+        The result is visible in the console output or text.dump file after objdump cmd. 
+
     }
 ]
 
+#include %system/asm-compiler.reds
+#include %system/emit-file.reds
 #include %asm.reds
 
 ; Register to register
@@ -62,4 +65,10 @@ asm [mov dword-ptr fs FEDCAB98h esi]
 
 ; Byte swap
 asm [bswap ebx]
+
+emit_to_file
+free_alloc
+
+
+
  
