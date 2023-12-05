@@ -20,13 +20,6 @@ Red/System [
 	}
 ]
 
-mov!: alias function! [
-    arg1 [argument!] 
-    arg2 [argument!] 
-    arg3 [argument!]
-    arg4 [argument!]
-]
-
 encode-reg: func [
     Opcode  [integer!]
     Mod     [integer!]
@@ -101,7 +94,7 @@ _mov: func [
         Shift [integer!]
         SegReg[integer!]
         a     [integer!]  
-][
+][    
     SegReg: 0
     if all [arg1 <> null arg2 <> null][ 
         either arg1/type = arg2/type [
@@ -164,4 +157,61 @@ _mov: func [
             ]
         ]
     ]
+]
+
+mov: func [
+    [typed] count [integer!] list [typed-value!]
+    /local
+        arg      [argument!]
+        arg1     [argument!]
+        arg2     [argument!]
+        arg3     [argument!]
+        arg4     [argument!] 
+        arg-indx [integer!]
+        type     [type!]
+][
+    arg3: null
+    arg4: null
+    arg-indx: 1
+    until [
+        if list/type = system/alias/argument! [
+            arg: as argument! list/value
+            either arg-indx = 1 [
+                either arg3 <> null [
+                    if arg/type = sreg3 [
+                        arg4: declare argument!
+                        arg4: arg
+                    ]
+                    arg-indx = 1
+                ][
+                    arg1: arg
+                    arg-indx: arg-indx + 1
+                ]
+            ][
+                arg2: arg
+            ]   
+        ]
+        if list/type = system/alias/type! [
+            type: as type! list/value
+            arg3: declare argument!
+            arg3/id: 0
+            arg3/type: type
+        ]
+        if list/type = type-integer! [
+            either arg-indx = 2 [
+                arg2: declare argument!
+                either arg3 <> null [arg2/type: mem][arg2/type: imm]
+                arg2/value: list/value
+            ][
+                arg1: declare argument!
+                either arg3 <> null [arg1/type: mem][arg1/type: imm]
+                arg1/value: list/value
+                arg-indx: arg-indx + 1
+            ]
+        ]
+        list: list + 1
+        count: count - 1
+        zero? count
+    ]
+    _mov arg1 arg2 arg3 arg4
 ]
