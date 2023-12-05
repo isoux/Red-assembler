@@ -11,6 +11,12 @@ Red/System [
     Note: {
         Reverses the byte order of a 32-bit (destination) register.
     }
+    Needs: {
+        #include %../system/asm-compiler.reds [
+            #include %../system/utils/byte-swap.reds
+        ]
+		
+	}
 ]
 
 bswap!: alias function! [
@@ -29,8 +35,9 @@ _bswap: func [
     if arg1 <> null [ 
         either arg1/type = reg32 [
             opcode: 0FC8h or arg1/id
-            res: to-hex opcode yes
-            print ["#inline #{0"res"}" lf]
+            opcode: byte_swap opcode
+            opcode: opcode >> 16 and FFFFh
+            emit_opcode opcode 0
         ][
             print ["Error!: Argument must be a 32-bit register!" lf]
         ]

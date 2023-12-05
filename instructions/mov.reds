@@ -12,6 +12,12 @@ Red/System [
         Each instruction, like this one, will have its own algorithm 
         for processing input arguments and emitting code.
     }
+    Needs: {
+        #include %../system/asm-compiler.reds [
+            #include %../system/utils/int-size.reds
+            #include %../system/utils/byte-swap.reds
+        ]	
+	}
 ]
 
 mov!: alias function! [
@@ -21,40 +27,6 @@ mov!: alias function! [
     arg4 [argument!]
 ]
 
-print-opcode: func [
-    Opcode  [integer!]
-    Prefix  [integer!]
-    /local
-        pref [c-string!]
-        res  [c-string!]
-][
-    pref: ""
-    res: to-hex Opcode yes
-    either Prefix <> 0 [
-        either all [Prefix >= 0 Prefix <= FFh] [
-            pref: byte-to-hex Prefix yes
-            print ["#inline #{"pref res"}" lf]
-        ][
-            pref: to-hex Prefix yes  ; A trick is used here, because  
-            print ["#inline #{"pref] ; the allocated strings on the local - 
-            res: to-hex Opcode yes   ; stack mix into each other's contents
-            print [res"}" lf]        ; when to-hex is called twice in a row!?
-        ]
-    ][
-        print ["#inline #{"res"}" lf]
-    ]
-]
-
-byte-swap: func [
-    a [integer!]
-    return: [integer!]
-][
-    system/cpu/eax: a
-    #inline #{0FC8} ; bswap eax
-    a: system/cpu/eax
-    a
-]
-
 encode-reg: func [
     Opcode  [integer!]
     Mod     [integer!]
@@ -62,34 +34,38 @@ encode-reg: func [
     Reg-Mem [integer!]
     /local
         ModRM [integer!]
+        size  [integer!]
+        mult  [integer!]
+        a     [integer!]
 ][
     ModRM:  Reg << 3
     Opcode: Opcode or ModRM or Mod or Reg-Mem 
-    print-opcode Opcode 0
+    size: int_size? Opcode
+    Opcode: byte_swap Opcode
+    mult: 4 - size mult: mult * 8
+    Opcode: Opcode >> mult
+    either size = 2 [a: FFFFh][a: FFFFFFh]
+    Opcode: Opcode and a
+    emit_opcode Opcode 0
 ]
 
 encode-imm: func [
-    Opcode  [integer!]
-    Reg     [integer!]
-    RegM    [integer!]
-    Shift   [integer!]
+    Opc    [integer!]
+    Reg    [integer!]
+    RegM   [integer!]
+    Shift  [integer!]
     /local
-        a   [integer!]
-        b   [integer!]
+        a  [integer!]
+        b  [integer!]
 ][
+    a: 0
     b: Reg << Shift
     switch Shift [
-        8   [Opcode: Opcode or RegM or b a: 0]
-        16  [b: byte-swap RegM RegM: b >> 16
-                Opcode: Opcode or Reg or RegM 
-                Opcode: Opcode or 66000000h a: 0
-            ]
-        32  [a: Opcode or Reg 
-                b: byte-swap RegM
-                Opcode: b
-            ]
+        8   [Opc: Opc or RegM or b Opc: byte_swap Opc Opc: Opc >> 16 Opc: Opc and FFFFh]
+        16  [b: byte_swap RegM RegM: b >> 16 Opc: Opc or Reg or RegM Opc: Opc or 66000000h Opc: byte_swap Opc]
+        32  [a: Opc or Reg Opc: RegM]
     ]
-    print-opcode Opcode a
+    emit_opcode Opc a
 ]
 
 encode-moffs: func [
@@ -97,21 +73,19 @@ encode-moffs: func [
     mem    [integer!]
     SegReg [integer!]
     /local  
-        a [integer!]
+        a  [integer!]
 ][
-    mem: byte-swap mem
+    mem: byte_swap mem
     if SegReg > 0 [
         a: Opc
         if all [a >= 0 a <= FFh] [Opc: SegReg << 8 or Opc]
         if all [a > FFh a <= FFFFh] [Opc: SegReg << 16 or Opc]
-        if any [a < 0 a > FFFFh] [
-            Opc: SegReg << 24 or Opc
-            a: Opc and FFFFh
-            Opc: byte-swap Opc
-            Opc: Opc << 16 or a
-        ]
+        if any [a < 0 a > FFFFh] [Opc: SegReg << 24 or Opc a: Opc and FFFFh Opc: byte_swap Opc Opc: Opc << 16 or a]
     ]
-    print-opcode mem Opc
+    mem: byte_swap mem
+    a: int_size? mem
+    emit_opcode mem Opc
+    if a <> 4 [a: 4 - a emit_zero a]
 ]
 
 _mov: func [
