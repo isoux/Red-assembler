@@ -13,7 +13,7 @@ Red/System [
     }
     Needs: {
         %asm-compiler.reds
-	}
+    }
 ]
 
 #include %targets/sys-defines.reds
