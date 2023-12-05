@@ -1,5 +1,5 @@
 # Red-assembler
-Assembler based exclusively on the Red - Red/System programming language
+Assembler based exclusively on the Red - Red/System programming language.
 
 With the Red language, the fun and enjoyment of programming is truly back to me the poor one "programmer"! 
 
