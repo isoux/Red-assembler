@@ -11,6 +11,9 @@ Red/System [
     Note: {
         File emitter for simple JIT compiler at Linux for now!
     }
+    Needs: {
+        %asm-compiler.reds
+	}
 ]
 
 #include %targets/sys-defines.reds

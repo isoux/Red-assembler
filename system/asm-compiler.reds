@@ -54,7 +54,6 @@ emit_opcode: func [
 ][
     i: 1
     pos: pc_offset
-    
     if Prefix <> 0 [
         size: int_size? Prefix
         if size <> 1 [  ; if 1 no need for byte swap
