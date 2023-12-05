@@ -43,6 +43,23 @@ emit_zero: func [
     pc_increment size
 ]
 
+emit_byte: func [
+    val [integer!]
+    rep [integer!] ; repeat
+    /local
+        a [integer!]
+        i [integer!]
+][
+    i: 1
+    a: pc_offset
+    while [i <= rep][
+        pc_buf/a: as byte! val
+        a: a + 1
+        i: i + 1
+    ]
+    pc_increment rep
+]
+
 emit_opcode: func [
     Opcode  [integer!]
     Prefix  [integer!]
