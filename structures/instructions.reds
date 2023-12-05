@@ -12,25 +12,3 @@ Red/System [
 
 #include %../instructions/mov.reds
 #include %../instructions/bswap.reds
-
-instruction!: alias struct! [
-    name [c-string!]
-    proc [function![
-          arg1 [argument!] 
-          arg2 [argument!] 
-          arg3 [argument!] 
-          arg4 [argument!]
-        ]
-    ]
-    argc  [integer!]
-]
-
-bswap: declare instruction!
-mov:   declare instruction!
-;etc
-
-bswap/name: "bswap"
-bswap/proc: as bswap! :_bswap
-
-mov/name: "mov"
-mov/proc: as mov! :_mov
