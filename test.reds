@@ -68,7 +68,3 @@ bswap ebx
 
 emit_to_file
 free_alloc
-
-
-
- 
