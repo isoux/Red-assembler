@@ -33,11 +33,11 @@ encode-reg: func [
 ][
     ModRM:  Reg << 3
     Opcode: Opcode or ModRM or Mod or Reg-Mem 
-    size: int_size? Opcode
+    size:   int_size? Opcode
     Opcode: byte_swap Opcode
-    mult: 4 - size mult: mult * 8
+    mult:   4 - size mult: mult * 8
     Opcode: Opcode >> mult
-    either size = 2 [a: FFFFh][a: FFFFFFh]
+    either  size = 2 [a: FFFFh][a: FFFFFFh]
     Opcode: Opcode and a
     emit_opcode Opcode 0
 ]
@@ -68,14 +68,12 @@ encode-moffs: func [
     /local  
         a  [integer!]
 ][
-    mem: byte_swap mem
     if SegReg > 0 [
         a: Opc
         if all [a >= 0 a <= FFh] [Opc: SegReg << 8 or Opc]
         if all [a > FFh a <= FFFFh] [Opc: SegReg << 16 or Opc]
         if any [a < 0 a > FFFFh] [Opc: SegReg << 24 or Opc a: Opc and FFFFh Opc: byte_swap Opc Opc: Opc << 16 or a]
     ]
-    mem: byte_swap mem
     a: int_size? mem
     emit_opcode mem Opc
     if a <> 4 [a: 4 - a emit_zero a]
