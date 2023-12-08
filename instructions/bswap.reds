@@ -15,8 +15,7 @@ Red/System [
         #include %../system/asm-compiler.reds [
             #include %../system/utils/byte-swap.reds
         ]
-		
-	}
+    }
 ]
 
 bswap: func [
