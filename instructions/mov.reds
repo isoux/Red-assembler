@@ -16,8 +16,8 @@ Red/System [
         #include %../system/asm-compiler.reds [
             #include %../system/utils/int-size.reds
             #include %../system/utils/byte-swap.reds
-        ]	
-	}
+        ]
+    }
 ]
 
 encode-reg: func [
