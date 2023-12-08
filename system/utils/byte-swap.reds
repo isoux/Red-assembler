@@ -1,5 +1,5 @@
 Red/System [
-    Title:  "Red-Assembler emiter"
+    Title:  "Fast inline byte swaper"
     Author: "Isoux"
     File:   %byte-swap.reds
     Tabs:   4
