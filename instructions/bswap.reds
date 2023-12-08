@@ -23,7 +23,6 @@ bswap: func [
     arg1 [argument!]
     /local
         opcode [integer!] 
-        res    [c-string!] 
 ][
     if arg1 <> null [ 
         either arg1/type = reg32 [
