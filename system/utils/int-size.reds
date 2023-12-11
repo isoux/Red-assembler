@@ -16,13 +16,10 @@ Red/System [
 int_size?: func [
     val      [integer!]
     return:  [integer!]
-    /local
-        size [integer!]
 ][
-    size: 0
-    if any [val < 0 val > FFFFFFh val <= FFFFFFFFh][size: 4]
-    if all [val > FFFFh val <= FFFFFFh][size: 3]
-    if all [val > FFh val <= FFFFh][size: 2]
-    if all [val > 0 val <= FFh][size: 1] 
-    size
+    if any [val < 0 val > FFFFFFh val <= FFFFFFFFh][return 4]
+    if all [val > FFFFh val <= FFFFFFh][return 3]
+    if all [val > FFh val <= FFFFh][return 2]
+    ;if all [val > 0 val <= FFh][return 1] 
+    return 1
 ]
