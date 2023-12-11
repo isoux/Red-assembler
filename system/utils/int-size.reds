@@ -1,5 +1,5 @@
 Red/System [
-    Title:  "Red-Assembler emiter"
+    Title:  "Gives integer size"
     Author: "Isoux"
     File:   %int-size.reds
     Tabs:   4
@@ -9,7 +9,7 @@ Red/System [
         See https://github.com/isoux/Red-assembler/blob/main/LICENSE
     }
     Note: {
-        Gives the size of integer 
+        Gives the size of integer: 1, 2, 3, or 4 bytes
     }
 ]
 
