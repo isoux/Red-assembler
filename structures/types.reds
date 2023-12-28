@@ -29,6 +29,9 @@ Red/System [
     _moffs64: 16
     _sreg2:   17
     _sreg3:   18
+    _rel8:    19
+    _rel16:   20
+    _rel32:   21
 ]
 
 type!: alias struct! [
@@ -53,6 +56,15 @@ byte-ptr:   declare type!
 word-ptr:   declare type!
 dword-ptr:  declare type!
 sreg3:      declare type!
+
+;A relative offset (rel8, rel16, or rel32)
+rel8:    declare type!
+rel16:   declare type!
+rel32:   declare type!
+
+rel8/id:    _rel8
+rel16/id:   _rel16
+rel32/id:   _rel32
 
 reg8/id:    _reg8
 reg16/id:   _reg16
