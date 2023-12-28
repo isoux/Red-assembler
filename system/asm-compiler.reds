@@ -20,7 +20,7 @@ pc_buf: allocate 2000h
 pc_offset: 1
 pc_size: 0
 
-pc_increment: func [
+pc_inc: func [
     size [integer!]
 ][
     pc_size:   pc_size   + size
@@ -40,7 +40,7 @@ emit_zero: func [
         a: a + 1
         i: i + 1
     ]
-    pc_increment size
+    pc_inc size
 ]
 
 emit_byte: func [
@@ -57,7 +57,7 @@ emit_byte: func [
         a: a + 1
         i: i + 1
     ]
-    pc_increment rep
+    pc_inc rep
 ]
 
 emit_opcode: func [
@@ -67,10 +67,10 @@ emit_opcode: func [
         a    [integer!]
         i    [integer!]
         size [integer!]
-        pos  [integer!]
+        rel  [integer!]
 ][
     i: 1
-    pos: pc_offset
+    rel: pc_offset
     if Prefix <> 0 [
         size: int_size? Prefix
         if size <> 1 [  ; if 1 no need for byte swap
@@ -82,26 +82,30 @@ emit_opcode: func [
             ]
         ]
         while [i <= size][
-            pc_buf/pos: as byte! Prefix
+            pc_buf/rel: as byte! Prefix
             Prefix: Prefix >> 8
-            pos: pos + 1
+            rel: rel + 1
             i: i + 1
         ]
-        pc_increment size
+        pc_inc size
     ] 
     size: int_size? Opcode
     either size <> 0 [
         i: 1
         while [i <= size][
-            pc_buf/pos: as byte! Opcode
+            pc_buf/rel: as byte! Opcode
             Opcode: Opcode >> 8
-            pos: pos + 1
+            rel: rel + 1
             i: i + 1
         ]
-        pc_increment size
+        pc_inc size
     ][
         print ["Not allowed!" lf]
     ]
 ]
 
-free_alloc: does [ free pc_buf ]
+free_compiler: does [ 
+    free pc_buf 
+]
+
+
