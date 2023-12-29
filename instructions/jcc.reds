@@ -166,7 +166,7 @@ jcc: func [
             ]
             emit_zero size
             req/ptr: a/value
-            req/rel: opc
+            req/opc: opc
             request_ptr_inc 1
         ]
         if a/type = type-integer! [
