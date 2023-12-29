@@ -8,6 +8,9 @@ Red/System [
 		Distributed under the Boost Software License, Version 1.0.
 		See https://github.com/red/red/blob/master/BSL-License.txt
 	}
+    Note: {
+        Sys calls defines for Linux
+    }
 ]
 
 #define O_RDONLY    0
