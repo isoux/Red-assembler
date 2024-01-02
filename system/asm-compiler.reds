@@ -16,7 +16,7 @@ Red/System [
 #include %utils/int-size.reds
 #include %utils/byte-swap.reds
 
-pc_buf: allocate 2000h
+pc_buf: allocate 20000h
 pc_offset: 1
 pc_size: 0
 
