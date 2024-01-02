@@ -22,11 +22,11 @@ lab_req!: alias struct![
     opc [integer!]
 ]
 
-request_ptrs: allocate 3000h
+request_ptrs: allocate 4000h
 req_offset: 0
 req_size: 0
 
-lab_ptrs: allocate 1000h
+lab_ptrs: allocate 1600h
 ptrs_offset: 1
 ptrs_size: 0
 
