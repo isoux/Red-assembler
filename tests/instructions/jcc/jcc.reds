@@ -22,9 +22,7 @@ Red/System[
 #include %../../../system/asm-label.reds
 #include %../../../system/emit-file.reds
 #include %../../../instructions/jcc.reds
-#include %../../../structures/common.reds
-#include %../../../structures/types.reds
-#include %../../../structures/registers.reds
+#include %../../test.reds
 
 ; Emit nop isnstruction 4 times
 emit_byte 90h 4
