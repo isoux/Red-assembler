@@ -13,3 +13,4 @@ Red/System [
 #include %../instructions/mov.reds
 #include %../instructions/bswap.reds
 #include %../instructions/jcc.reds
+#include %../instructions/nop.reds
